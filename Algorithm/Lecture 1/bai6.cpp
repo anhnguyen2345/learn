@@ -5,7 +5,7 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    int index = 1;
+    int index = 1, not_find = 0;
     int total_segments;
     cin >> total_segments;
     int arr[2*total_segments];
@@ -17,18 +17,17 @@ int main(int argc, char const *argv[])
     int _max = arr[1];
     for (size_t i = 2; i < 2*total_segments; i = i + 2)
     {
-        if (_min >= arr[i] && _max <= arr[i+1])
+        _min = min(_min,arr[i]);
+        _max = max(_max,arr[i+1]);
+    }
+    for (size_t i = 0; i < 2*total_segments; i = i + 2)
+    {
+        if (arr[i] == _min && arr[i+1] == _max)
         {
-            index = index + i/2;
-            _min = arr[i];
-            _max = arr[i+1];
-        }
+            cout << 1 + i/2;
+            return 0;
+        }  
     }
-    if(_min == _max){
-        printf("-1");
-    }
-    else{
-        cout << index;
-    }
+    cout << -1;
     return 0;
 }
