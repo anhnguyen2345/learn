@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-
+// frequency table
 int main(int argc, char const *argv[])
 {
    string S_string,T_string;
