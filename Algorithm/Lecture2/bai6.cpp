@@ -3,35 +3,21 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    int N;
-    cin >> N;
-    int arr[N];
-    for (size_t i = 1; i <= N; i++)
+    int n,a, len = 2;
+    int last_occurrences[100100] ={0};
+    cin >> n;
+    for (int i = 1; i <= n; i++)
     {
-        cin >> arr[i];
-    }
-    int len_max = 0, len_max_temp = 0, idx_start = 1, idx_end = 1;
-    while (idx_end <= N)
-    {
-        if (abs(arr[idx_start]-arr[idx_end]) > 1)
+        cin >> a;
+        last_occurrences[a] = i;
+        if (last_occurrences[a-1]>last_occurrences[a+1])
         {
-            cout << "step " << idx_end << endl;
-            len_max_temp = idx_end - idx_start - 1;
-            if (len_max <= len_max_temp)
-            {
-                len_max = len_max_temp;
-            }
-            idx_start++;
-        }
-        else if (abs(arr[idx_start]-arr[idx_end]) <= 1 && idx_end == N)
-        {
-            len_max = idx_end - idx_start + 1;
-            break;
+            len = max(len, i - max(last_occurrences[a-2],last_occurrences[a+1]));
         }
         else{
-            idx_end++;
+            len = max(len, i - max(last_occurrences[a+2],last_occurrences[a-1]));
         }
     }
-    cout << len_max;
+    cout << len;
     return 0;
 }
